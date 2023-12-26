@@ -1,0 +1,29 @@
+{% extends "main/main_template.html" %}
+
+{% block title %}Рецепт: {{ recipe.title }}{% endblock title %}
+
+{% block content %}
+    <p class="h1 text-center">{{ recipe.title }}</p>
+    {% if recipe.image %}
+        <picture>
+            <img src="/media/{{ recipe.image }}" class="img-fluid rounded mx-auto d-block" alt="{{ recipe.title }}" style="display: block; width: auto; max-height: 400px;"/>
+        </picture>
+    {% endif %}
+    <p class="h3 text-start">Описание:</p>
+    {{ recipe.description }}
+    <p class="h3 text-start">Продукты:</p>
+    {{ recipe.products }}
+    <p class="h3 text-start">Шаги приготовления:</p>
+    {{ recipe.steps }}
+    <p class="card-text text-end"><small class="text-muted">Автор: {{ recipe.author }}, от {{ recipe.update_date }}</small></p>
+    {% if not recipe.is_public %}
+        <p class="card-text text-end"><small class="text-danger">Не опубликован</small></p>
+    {% endif %}
+    <hr>
+    {% if user.is_authenticated %}
+        {% if recipe.author.id == user.id %}
+            <p class="text-end"><a href="{{ recipe.get_absolute_url }}edit/">Редактирование</a></p>
+            <p class="text-end"><a href="{{ recipe.get_absolute_url }}delete/">Удаление</a></p>        
+        {% endif %}
+    {% endif %}
+{% endblock content %}

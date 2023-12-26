@@ -1,0 +1,16 @@
+{% extends "main/main_template.html" %}
+
+{% block title %}Добавляем новый рецепт{% endblock title %}
+
+{% block content %}
+    {% if recipe.image %}
+        <picture>
+            <img src="/media/{{ recipe.image }}" class="img-fluid rounded mx-auto d-block" alt="{{ recipe.title }}" style="display: block; width: auto; max-height: 400px;" />
+        </picture>
+    {% endif %}
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary"> Сохранить </button>
+    </form>
+{% endblock content %}

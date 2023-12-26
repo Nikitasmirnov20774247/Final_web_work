@@ -1,0 +1,25 @@
+{% extends "main/main_template.html" %}
+
+{% block title %}Cайта рецептов - Home page{% endblock title %}
+
+{% block content %}
+    <p class="h1 text-center mt-5">Приветсвуем вас - {% if user.username %}{{ user.username }}{% else %}Гость{% endif %}</p>
+    <p class="h3 text-center my-5">Рецепты пользователей</p>
+    {% for recipe in recipes %}
+        <div class="card mb-3">
+            {% if recipe.image %}
+                <a href={{ recipe.get_absolute_url }}>
+                    <img src="/media/{{ recipe.image }}" class="card-img-top rounded mx-auto d-block" alt="{{ recipe.title }}" 
+                    style="display: block; width: auto; max-height: 300px;">
+                </a>
+            {% endif %}
+            <div class="card-body">
+                <a href={{ recipe.get_absolute_url }}>
+                    <h5 class="card-title">{{ recipe.title }}</h5>
+                </a>
+                <p class="card-text">{{ recipe.description }}</p>
+                <p class="card-text text-end"><small class="text-muted">Автор: {{ recipe.author }}, от {{ recipe.update_date }}</small></p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock content %}

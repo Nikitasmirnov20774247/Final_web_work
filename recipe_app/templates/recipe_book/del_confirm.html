@@ -1,0 +1,12 @@
+{% extends "main/main_template.html" %}
+
+{% block title %}Подтверждаем удаление рецепта {{ recipe.title }}{% endblock title %}
+
+{% block content %}
+    <p class="">Вы действительно хотите удалить рецепт "{{ recipe.title }}"</p>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-danger" > Отправить </button>
+    </form>
+{% endblock content %}
